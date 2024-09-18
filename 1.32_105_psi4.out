@@ -1,0 +1,178 @@
+
+    -----------------------------------------------------------------------
+          Psi4: An Open-Source Ab Initio Electronic Structure Package
+                               Psi4 1.9.1 release
+
+                         Git: Rev {} zzzzzzz 
+
+
+    D. G. A. Smith, L. A. Burns, A. C. Simmonett, R. M. Parrish,
+    M. C. Schieber, R. Galvelis, P. Kraus, H. Kruse, R. Di Remigio,
+    A. Alenaizan, A. M. James, S. Lehtola, J. P. Misiewicz, M. Scheurer,
+    R. A. Shaw, J. B. Schriber, Y. Xie, Z. L. Glick, D. A. Sirianni,
+    J. S. O'Brien, J. M. Waldrop, A. Kumar, E. G. Hohenstein,
+    B. P. Pritchard, B. R. Brooks, H. F. Schaefer III, A. Yu. Sokolov,
+    K. Patkowski, A. E. DePrince III, U. Bozkaya, R. A. King,
+    F. A. Evangelista, J. M. Turney, T. D. Crawford, C. D. Sherrill,
+    J. Chem. Phys. 152(18) 184108 (2020). https://doi.org/10.1063/5.0006002
+
+                            Additional Code Authors
+    E. T. Seidl, C. L. Janssen, E. F. Valeev, M. L. Leininger,
+    J. F. Gonthier, R. M. Richard, H. R. McAlexander, M. Saitow, X. Wang,
+    P. Verma, M. H. Lechner, A. Jiang, S. Behnle, A. G. Heide,
+    M. F. Herbst, and D. L. Poole
+
+             Previous Authors, Complete List of Code Contributors,
+                       and Citations for Specific Modules
+    https://github.com/psi4/psi4/blob/master/codemeta.json
+    https://github.com/psi4/psi4/graphs/contributors
+    http://psicode.org/psi4manual/master/introduction.html#citing-psifour
+
+    -----------------------------------------------------------------------
+
+
+    Psi4 started on: Tuesday, 17 September 2024 01:30PM
+
+    Process ID: 597295
+    Host:       cmpsrv002
+    PSIDATADIR: /home/vance/anaconda3/envs/p4env/share/psi4
+    Memory:     500.0 MiB
+    Threads:    4
+    
+  ==> Input File <==
+
+--------------------------------------------------------------------------
+#charge=0 charge_a=0 charge_b=0 selection_a=1-2 selection_b=3-6 scaling=1.05 benchmark_Eint=-8.049 benchmark_unit=kcal/mol group=XH-N
+set_num_threads(4)
+memory 8 GB
+basis this_basis {
+    assign    aug-cc-pVTZ
+}
+
+molecule {
+     0 1
+    --
+     0 1
+     H       -0.13083        0.13151       -0.43120
+     I        0.01507       -0.01526       -2.14801
+    --
+     0 1
+     N       -0.27337        0.27498        1.24807
+     H        0.01668       -0.58561        1.69476
+     H        0.31062        1.03124        1.58167
+     H       -1.23485        0.46730        1.49874
+}
+
+set {
+    scf_type                DF
+    freeze_core             true
+    sapt_dft_grac_shift_a    0.116251
+    sapt_dft_grac_shift_b    0.113162
+    sapt_dft_do_hybrid      true
+    do_ind_exch_sinf        true
+    do_disp_exch_sinf       true
+}
+
+nrg = energy('sapt(DFT)')
+--------------------------------------------------------------------------
+  Threads set to 4 by Python driver.
+
+  Memory set to   7.451 GiB by Python driver.
+
+Scratch directory: /scratch2/vance/psi4/
+
+*** tstart() called on cmpsrv002
+*** at Tue Sep 17 13:30:23 2024
+
+
+         ---------------------------------------------------------
+                            SAPT(DFT) Procedure                    
+
+                           by Daniel G. A. Smith                   
+         ---------------------------------------------------------
+
+Warning! The default value of SAPT_DFT_EXCH_DISP_SCALE_SCHEME has changed from DISP to FIXED. Please be careful comparing results with earlier versions. 
+
+  ==> Algorithm <==
+
+   SAPT DFT Functional             PBE0
+   Monomer A GRAC Shift        0.116251
+   Monomer B GRAC Shift        0.113162
+   Delta HF                        True
+   JK Algorithm                      DF
+
+   Required computations:
+     HF  (Dimer)
+     HF  (Monomer A)
+     HF  (Monomer B)
+     DFT (Monomer A)
+     DFT (Monomer B)
+
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  6, 6, 3
+    Auxiliary basis highest AM E, G, H:  7, 7, 4
+    Onebody   basis highest AM E, G, H:  -, -, -
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on cmpsrv002
+*** at Tue Sep 17 13:30:23 2024
+
+
+Traceback (most recent call last):
+  File "/home/vance/anaconda3/envs/p4env/bin/psi4", line 387, in <module>
+    exec(content)
+  File "<string>", line 54, in <module>
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/driver.py", line 525, in energy
+    wfn = procedures['energy'][lowername](lowername, molecule=molecule, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/procrouting/sapt/sapt_proc.py", line 122, in run_sapt_dft
+    hf_wfn_dimer = scf_helper("SCF", molecule=sapt_dimer, banner="SAPT(DFT): delta HF Dimer", **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/procrouting/proc.py", line 1778, in scf_helper
+    base_wfn = core.Wavefunction.build(scf_molecule, core.get_global_option('BASIS'))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/p4util/python_helpers.py", line 217, in _core_wavefunction_build
+    basis = core.BasisSet.build(mol, "ORBITAL", basis, quiet=quiet)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/p4util/python_helpers.py", line 157, in _pybuild_basis
+    bs, basisdict = qcdb.BasisSet.pyconstruct(mol.to_dict(),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/qcdb/libmintsbasisset.py", line 722, in pyconstruct
+    bs, msg, ecp = BasisSet.construct(parser, mol,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vance/anaconda3/envs/p4env/lib/python3.12/site-packages/psi4/driver/qcdb/libmintsbasisset.py", line 967, in construct
+    raise BasisSetNotFound(f'BasisSet::construct: Unable to find a basis set for atom {at + 1} for key {key} among:\n{text2}')
+
+psi4.driver.qcdb.exceptions.BasisSetNotFound: BasisSet::construct: Unable to find a basis set for atom 2 for key BASIS among:
+  Shell Entries: ['I']
+  Basis Sets: [('aug-cc-pVTZ', 'aug-cc-pVTZ', None)]
+  File Path: /home/vance/boese_dimers_calc, /home/vance/boese_dimers_calc, /home/vance/anaconda3/envs/p4env/share/psi4/basis
+  Input Blocks: 
+
+
+
+Printing out the relevant lines from the Psithon --> Python processed input file:
+    core.set_global_option("SAPT_DFT_GRAC_SHIFT_A", 0.116251)
+    core.set_global_option("SAPT_DFT_GRAC_SHIFT_B", 0.113162)
+    core.set_global_option("SAPT_DFT_DO_HYBRID", "true")
+    core.set_global_option("DO_IND_EXCH_SINF", "true")
+    core.set_global_option("DO_DISP_EXCH_SINF", "true")
+--> nrg = energy('sapt(DFT)')
+
+!----------------------------------------------------------------------------------!
+!                                                                                  !
+!  BasisSet::construct: Unable to find a basis set for atom 2 for key BASIS among: !
+!   Shell Entries: ['I']                                                           !
+!   Basis Sets: [('aug-cc-pVTZ', 'aug-cc-pVTZ', None)]                             !
+!   File Path: /home/vance/boese_dimers_calc, /home/vance/boese_dimers_calc,       !
+!     /home/vance/anaconda3/envs/p4env/share/psi4/basis                            !
+!   Input Blocks:                                                                  !
+!                                                                                  !
+!----------------------------------------------------------------------------------!
+
+    Psi4 stopped on: Tuesday, 17 September 2024 01:30PM
+    Psi4 wall time for execution: 0:00:00.59
+
+*** Psi4 encountered an error. Buy a developer more coffee!
+*** Resources and help at github.com/psi4/psi4.

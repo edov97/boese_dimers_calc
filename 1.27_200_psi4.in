@@ -1,0 +1,32 @@
+#charge=0 charge_a=0 charge_b=0 selection_a=1-2 selection_b=3-13 scaling=2.0 benchmark_Eint=-2.864 benchmark_unit=kcal/mol group=XH-N
+set_num_threads(4)
+memory 8 GB
+basis this_basis {
+    assign    aug-cc-pVQZ
+}
+
+molecule {
+     0 1
+    --
+     0 1
+     H        0.00000        0.00000        1.62588
+    Cl        0.00000        0.00000        2.99334
+    --
+     0 1
+     H        0.00000       -2.14771       -4.15426
+     H        0.00000       -2.05142       -1.66073
+     C        0.00000        0.00000       -4.34806
+     C        0.00000       -1.19640       -3.64394
+}
+
+set {
+    scf_type                DF
+    freeze_core             true
+    sapt_dft_grac_shift_a    0.116251
+    sapt_dft_grac_shift_b    0.113162
+    sapt_dft_do_hybrid      true
+    do_ind_exch_sinf        true
+    do_disp_exch_sinf       true
+}
+
+nrg = energy('sapt(DFT)')

@@ -1,0 +1,54 @@
+molecule monomer{
+    0 1
+    H    0.000000000  -2.147713952  -2.709353139
+    H    0.000000000  -2.051415327  -0.215822986
+    C    0.000000000   0.000000000  -2.903153942
+    C    0.000000000  -1.196403290  -2.199037711
+    C    0.000000000  -1.149313355  -0.813104984
+    N    0.000000000   0.000000000  -0.140108263
+    C    0.000000000   1.149313355  -0.813104984
+    C    0.000000000   1.196403290  -2.199037711
+    H    0.000000000   2.051415327  -0.215822986
+    H    0.000000000   2.147713952  -2.709353139
+    H    0.000000000   0.000000000  -3.983731460
+    units angstrom
+    Symmetry C1
+}
+
+set {
+    basis                  aug-cc-pVQZ
+}
+dft_func = 'pbe0'
+set freeze_core TRUE
+# get the charge and multiplicity of the monomer
+charge = monomer.molecular_charge()
+mult   = monomer.multiplicity()
+
+set reference rks
+EN, wfn = energy(dft_func, return_wfn=True)
+
+# We need to find the HOMO eigenvalue of this system
+nelec_a   = wfn.nalpha()
+epsilon_a = wfn.epsilon_a().np  # The .np is need to convert the Psi4 Vector object to an np.array
+e_homo    = epsilon_a[nelec_a-1]
+
+# now remove and electron and increase the multiplicity.
+monomer.set_molecular_charge(charge+1)
+monomer.set_multiplicity(mult+1)
+set reference uks
+EN1 = energy(dft_func)
+
+IP = EN1 - EN
+AC_shift = IP + e_homo
+
+psi4.print_out("\n")
+psi4.print_out("%s energies and IP \n\n" % (dft_func))
+psi4.print_out("  Num Electrons   Charge     E_int [a.u.]            \n")
+psi4.print_out("-----------------------------------------------------\n")
+psi4.print_out("    N             %3d   %10.6f \n" % (charge,EN))
+psi4.print_out("    N-1           %3d   %10.6f \n" % (charge+1,EN1))
+psi4.print_out("-----------------------------------------------------\n")
+psi4.print_out("    IP                  %10.6f   a.u. \n" % (IP))
+psi4.print_out("    e_HOMO              %10.6f   a.u. \n" % (e_homo))
+psi4.print_out("    AC-shift            %10.6f   a.u. \n" % (AC_shift))
+psi4.print_out("-----------------------------------------------------\n")

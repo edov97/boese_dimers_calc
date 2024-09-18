@@ -1,0 +1,14 @@
+1) The kernel:
+Using sapt_dft_do_hybrid = True appears to do the following:
+-We don't know which kernel uses for the induction and Exch-Ind, and it's effecting only Edisp20,r 
+	syntax: r is not used in dispersion and used consistently elsewhere.
+	syntax: even though this is set to true the kernel is being listed as ALDA, which is not or we don't know.
+-it's having no effects on exch-disp20
+2) do_disp_exch_sinf = True for Exch-Disp20,u and ,r :
+We should be using the Jansen Formula, which would be the S^inf, but it does not appear to do so. No results are shown for Exch-Disp20 (S^inf)
+3) do_ind_exch_sinf = True for Exch-Ind20,u and r : 
+Although it does compute this termes using the Jansen formula for S^inf, it does use the S^2 value to calculate the total SAPT(DFT) exchange induction energy and to compute the Delta HF term.
+	syntax: the use of u, and r is not consistent throught the output.
+	syntax: the use of S^2 and S^inf is not consistent throught the output.
+4) If a particular type of setting is requested in the command file (ex. s^inf) it should go in the final output table and if S^inf is specified the calculated S^inf should be used to compute the total induction and dispersions terms, as well as the total SAPT(DFT) energy.
+5) The variable 'SAPT EXCHDISP20(S^INF) ENERGY' although listed among the SAPT variables in the psi4 official website does not exist. That's probably also why Exch-Disp20(S^inf) cannot be computed.

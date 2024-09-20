@@ -5,9 +5,10 @@ import os
 # Function to get the basis set based on the file name
 def get_basis(file_name):
     if file_name.startswith("1.22") or file_name.startswith("1.27") or file_name.startswith("1.28"):
-        return "aug-cc-pVQZ"
+        return "def2-qzvp"
+#       return "aug-cc-pVQZ"
     elif file_name.startswith("1.32"):
-        return "def2-qzvpp"
+        return "def2-qzvp"
 
 # Function to get the sapt_dft_grac_shift_a value based on the file name
 def get_sapt_dft_grac_shift_a(file_name):

@@ -2,7 +2,7 @@
 set_num_threads(4)
 memory 8 GB
 basis this_basis {
-    assign    aug-cc-pVQZ
+    assign    def2-qzvp
 }
 
 molecule {
@@ -33,6 +33,7 @@ set {
     sapt_dft_grac_shift_a    0.116251
     sapt_dft_grac_shift_b    0.074627
     sapt_dft_do_hybrid      true
+    sapt_dft_do_dhf         false
     do_ind_exch_sinf        true
     do_disp_exch_sinf       true
 }
@@ -44,24 +45,8 @@ eexch = psi4.variable('SAPT EXCH ENERGY')
 eind = psi4.variable('SAPT IND ENERGY')
 edisp = psi4.variable('SAPT DISP ENERGY')
 esapt = psi4.variable('SAPT TOTAL ENERGY')
-eexindinfty = psi4.variable('SAPT EXCH-IND20(S^INF) ENERGY')
-eind20r = psi4.variable('SAPT IND20,R ENERGY')
-eexind20r = psi4.variable('SAPT EXCH-IND20,R ENERGY')
-eind20u = psi4.variable('SAPT IND20,U ENERGY')
-eexind20u = psi4.variable('SAPT EXCH-IND20,U ENERGY')
-edisp20 = psi4.variable('SAPT DISP20 ENERGY')
-eexdisp20 = psi4.variable('SAPT EXCH-DISP20 ENERGY')
-eexch10 = psi4.variable('SAPT EXCH10 ENERGY')
-eexch10s2 = psi4.variable('SAPT EXCH10(S^2) ENERGY')
 print('sapt elst energy =', eelst)
+print('sapt exch energy =', eexch)
 print('sapt total induction energy =', eind)
 print('sapt total dispersion energy =', edisp)
 print('sapt total energy =', esapt)
-print('sapt ind20,r energy =', eind20r)
-print('sapt exch-ind20,r energy =', eexind20r)
-print('sapt ind20,u energy =', eind20u)
-print('sapt exch-ind20,u energy =', eexind20u)
-print('sapt disp20 (u or r?) energy =', edisp20)
-print('sapt exch-disp20 (u or r?) energy =', eexdisp20)
-print('sapt exch10 (u or r? which s?) energy =', eexch10)
-print('sapt exch10 s^2 (u or r?) energy =', eexch10s2)

@@ -5,9 +5,10 @@ import os
 # Function to get the basis set based on the file name
 def get_basis(file_name):
     if file_name.startswith("1.22") or file_name.startswith("1.27") or file_name.startswith("1.28"):
-        return "aug-cc-pVQZ"
+        return "def2-qzvp"
+      # return "aug-cc-pVQZ"
     elif file_name.startswith("1.32"):
-        return "def2-qzvpp"
+        return "def2-qzvp"
 
 # Function to get the sapt_dft_grac_shift_a value based on the file name
 def get_sapt_dft_grac_shift_a(file_name):
@@ -76,6 +77,7 @@ for xyz_file in xyz_files:
             "sapt_dft_grac_shift_a": get_sapt_dft_grac_shift_a(xyz_file), # Differet AC shifts based on the system
             "sapt_dft_grac_shift_b": get_sapt_dft_grac_shift_b(xyz_file), 
             "sapt_dft_do_hybrid": "true",
+            "sapt_dft_do_dhf": "false",
             "do_ind_exch_sinf":   "true",
             "do_disp_exch_sinf":  "true",
         },
@@ -94,29 +96,30 @@ for xyz_file in xyz_files:
         f.write("eind = psi4.variable('SAPT IND ENERGY')\n")
         f.write("edisp = psi4.variable('SAPT DISP ENERGY')\n")
         f.write("esapt = psi4.variable('SAPT TOTAL ENERGY')\n")
-#        f.write("eexdispinfty = psi4.variable('SAPT EXCH-DISP20(S^INF) ENERGY')\n") this variable is listed in the ist of variables, but doesn't exist...
-        f.write("eexindinfty = psi4.variable('SAPT EXCH-IND20(S^INF) ENERGY')\n")
-        f.write("eind20r = psi4.variable('SAPT IND20,R ENERGY')\n")
-        f.write("eexind20r = psi4.variable('SAPT EXCH-IND20,R ENERGY')\n")
-        f.write("eind20u = psi4.variable('SAPT IND20,U ENERGY')\n")
-        f.write("eexind20u = psi4.variable('SAPT EXCH-IND20,U ENERGY')\n")
-        f.write("edisp20 = psi4.variable('SAPT DISP20 ENERGY')\n")
-        f.write("eexdisp20 = psi4.variable('SAPT EXCH-DISP20 ENERGY')\n")
-        f.write("eexch10 = psi4.variable('SAPT EXCH10 ENERGY')\n")
-        f.write("eexch10s2 = psi4.variable('SAPT EXCH10(S^2) ENERGY')\n")
+#        f.write("eexdispinfty = psi4.variable('SAPT EXCH-DISP20(S^INF) ENERGY')\n") #this variable is listed in the ist of variables, but doesn't exist...
+#        f.write("eexindinfty = psi4.variable('SAPT EXCH-IND20(S^INF) ENERGY')\n") Unknown variable here for exch-ind20 (S^inf)
+#        f.write("eind20r = psi4.variable('SAPT IND20,R ENERGY')\n")
+#        f.write("eexind20r = psi4.variable('SAPT EXCH-IND20,R ENERGY')\n")
+#       f.write("eind20u = psi4.variable('SAPT IND20,U ENERGY')\n")
+#       f.write("eexind20u = psi4.variable('SAPT EXCH-IND20,U ENERGY')\n")
+#       f.write("edisp20 = psi4.variable('SAPT DISP20 ENERGY')\n")
+#       f.write("eexdisp20 = psi4.variable('SAPT EXCH-DISP20 ENERGY')\n")
+#       f.write("eexch10 = psi4.variable('SAPT EXCH10 ENERGY')\n")
+#       f.write("eexch10s2 = psi4.variable('SAPT EXCH10(S^2) ENERGY')\n")
         f.write("print('sapt elst energy =', eelst)\n")
+        f.write("print('sapt exch energy =', eexch)\n")
         f.write("print('sapt total induction energy =', eind)\n")
         f.write("print('sapt total dispersion energy =', edisp)\n")
         f.write("print('sapt total energy =', esapt)\n")
 #        f.write("print('sapt exch-disp20(S^inf) energy =', eexdispinfty)\n")
-        f.write("print('sapt ind20,r energy =', eind20r)\n")
-        f.write("print('sapt exch-ind20,r energy =', eexind20r)\n")
-        f.write("print('sapt ind20,u energy =', eind20u)\n")
-        f.write("print('sapt exch-ind20,u energy =', eexind20u)\n")
-        f.write("print('sapt disp20 (u or r?) energy =', edisp20)\n")
-        f.write("print('sapt exch-disp20 (u or r?) energy =', eexdisp20)\n")
-        f.write("print('sapt exch10 (u or r? which s?) energy =', eexch10)\n")
-        f.write("print('sapt exch10 s^2 (u or r?) energy =', eexch10s2)\n")
+#        f.write("print('sapt ind20,r energy =', eind20r)\n")
+#        f.write("print('sapt exch-ind20,r energy =', eexind20r)\n")
+#       f.write("print('sapt ind20,u energy =', eind20u)\n")
+#       f.write("print('sapt exch-ind20,u energy =', eexind20u)\n")
+#       f.write("print('sapt disp20 (u or r?) energy =', edisp20)\n")
+#       f.write("print('sapt exch-disp20 (u or r?) energy =', eexdisp20)\n")
+#       f.write("print('sapt exch10 (u or r? which s?) energy =', eexch10)\n")
+#       f.write("print('sapt exch10 s^2 (u or r?) energy =', eexch10s2)\n")
 
 
 

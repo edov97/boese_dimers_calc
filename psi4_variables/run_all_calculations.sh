@@ -19,7 +19,7 @@ input_files=(
 # Loop through each input file and launch the calculation
 for input_file in "${input_files[@]}"; do
 	output_file="${input_file%.in}.out"
-        	psi4 -n 4 -i "$input_directory/$input_file" -o "$input_directory/$output_file" &
+        	psi4 -n 8 -i "$input_directory/$input_file" -o "$input_directory/$output_file" &
         	done
 # Wait for all background processes to finish
 		wait

@@ -1,0 +1,36 @@
+#charge=0 charge_a=0 charge_b=0 selection_a=1-2 selection_b=3-13 scaling=0.9 benchmark_Eint=-10.913 benchmark_unit=kcal/mol group=XH-N
+set_num_threads(4)
+memory 8 GB
+basis this_basis {
+    assign    aug-cc-pVQZ
+}
+
+molecule {
+     0 1
+    --
+     0 1
+     H        0.00000        0.00000        1.62588
+    Cl        0.00000        0.00000        2.99334
+    --
+     0 1
+     H        0.00000       -2.14771       -2.38826
+     H        0.00000       -2.05142        0.10527
+     C        0.00000        0.00000       -2.58206
+     C        0.00000       -1.19640       -1.87795
+     C        0.00000       -1.14931       -0.49202
+     N        0.00000        0.00000        0.18098
+     C       -0.00000        1.14931       -0.49202
+     C       -0.00000        1.19640       -1.87795
+     H       -0.00000        2.05142        0.10527
+     H       -0.00000        2.14771       -2.38826
+     H        0.00000        0.00000       -3.66264
+}
+
+set {
+    scf_type                DF
+    freeze_core             false
+    do_ind_exch_sinf        true
+    do_disp_exch_sinf       true
+}
+
+nrg = energy('sapt2+dmp2')
